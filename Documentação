@@ -1,0 +1,160 @@
+
+
+A biblioteca `dados` é uma implementação simplificada de um manipulador de dados tabulares em Python, oferecendo funcionalidades básicas para criação, manipulação e operações em DataFrames.
+
+#### Instalação
+
+Para utilizar a biblioteca `dados`, você precisa ter Python instalado em seu ambiente. É recomendado utilizar um ambiente virtual para gerenciar as dependências do projeto. Para instalar a biblioteca, execute o seguinte comando:
+
+```bash
+pip install dados
+```
+
+#### Funcionalidades Principais
+
+#### Classe `DataFrame`
+
+A classe `DataFrame` é o principal componente da biblioteca `dados`, representando um objeto para armazenamento e manipulação de dados tabulares.
+
+##### Métodos
+
+1. `__init__(self, dados=None)`
+   - **Descrição**: Inicializa um novo DataFrame com dados opcionais.
+   - **Parâmetros**:
+     - `dados` (dict ou None, opcional): Dados iniciais para preencher o DataFrame, onde as chaves são os nomes das colunas e os valores são listas dos dados correspondentes.
+   - **Exemplo**:
+     ```python
+     df = DataFrame()  # Cria um DataFrame vazio
+     ```
+     ```python
+     df = DataFrame(dados)  # Cria um DataFrame a partir de um dicionário de dados
+     ```
+
+2. `__str__(self)`
+   - **Descrição**: Retorna uma representação em string do DataFrame.
+   - **Exemplo**:
+     ```python
+     print(df)  # Exibe o DataFrame como uma string
+     ```
+
+3. `converter_para_maiusculas(self, coluna)`
+   - **Descrição**: Converte os valores de uma coluna específica para maiúsculas.
+   - **Parâmetros**:
+     - `coluna` (str): Nome da coluna que se deseja converter.
+   - **Exemplo**:
+     ```python
+     df.converter_para_maiusculas('Nome')
+     ```
+
+4. `unir(self, coluna1, coluna2, nome_nova_coluna)`
+   - **Descrição**: Une os valores de duas colunas existentes em uma nova coluna.
+   - **Parâmetros**:
+     - `coluna1` (str): Nome da primeira coluna a ser unida.
+     - `coluna2` (str): Nome da segunda coluna a ser unida.
+     - `nome_nova_coluna` (str): Nome da nova coluna que será criada.
+   - **Exemplo**:
+     ```python
+     df.unir('Nome', 'Sobrenome', 'Nome_Completo')
+     ```
+
+5. `remover_coluna(self, nome_coluna)`
+   - **Descrição**: Remove uma coluna específica do DataFrame.
+   - **Parâmetros**:
+     - `nome_coluna` (str): Nome da coluna a ser removida.
+   - **Exemplo**:
+     ```python
+     df.remover_coluna('Idade')
+     ```
+
+6. `ordenar_por(self, coluna, ascendente=True)`
+   - **Descrição**: Ordena o DataFrame com base nos valores de uma coluna específica.
+   - **Parâmetros**:
+     - `coluna` (str): Nome da coluna usada para ordenação.
+     - `ascendente` (bool, opcional): Define se a ordenação é ascendente (`True`) ou descendente (`False`).
+   - **Exemplo**:
+     ```python
+     df.ordenar_por('Salario', ascendente=False)
+     ```
+
+7. `filtrar(self, condicao)`
+   - **Descrição**: Filtra as linhas do DataFrame com base em uma condição especificada.
+   - **Parâmetros**:
+     - `condicao` (str): Condição de filtro no formato de uma expressão booleana.
+   - **Exemplo**:
+     ```python
+     df.filtrar('Idade > 30')
+     ```
+
+8. `calcular_estatisticas(self)`
+   - **Descrição**: Calcula estatísticas descritivas para todas as colunas numéricas do DataFrame.
+   - **Retorno**:
+     - `dict`: Dicionário contendo as estatísticas descritivas para cada coluna numérica.
+   - **Exemplo**:
+     ```python
+     estatisticas = df.calcular_estatisticas()
+     ```
+
+9. `exportar_csv(self, nome_arquivo)`
+   - **Descrição**: Exporta os dados do DataFrame para um arquivo CSV.
+   - **Parâmetros**:
+     - `nome_arquivo` (str): Nome do arquivo CSV de destino.
+   - **Exemplo**:
+     ```python
+     df.exportar_csv('dados_exportados.csv')
+     ```
+
+10. `importar_csv(cls, nome_arquivo)`
+    - **Descrição**: Importa dados de um arquivo CSV para um novo DataFrame.
+    - **Parâmetros**:
+      - `nome_arquivo` (str): Nome do arquivo CSV a ser importado.
+    - **Retorno**:
+      - `DataFrame`: Novo DataFrame contendo os dados do arquivo CSV.
+    - **Exemplo**:
+      ```python
+      df_importado = DataFrame.importar_csv('dados_importados.csv')
+      ```
+
+#### Exemplo de Uso Completo
+
+```python
+from dados import DataFrame
+
+# Dados iniciais
+dados = {
+    'Nome': ['João', 'Maria', 'José'],
+    'Idade': [30, 25, 40],
+    'Cidade': ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte']
+}
+
+# Criando um DataFrame
+df = DataFrame(dados)
+
+# Exibindo o DataFrame
+print("DataFrame Inicial:")
+print(df)
+
+# Aplicando operações
+df.converter_para_maiusculas('Nome')
+df.unir('Nome', 'Cidade', 'Nome_Cidade')
+df.remover_coluna('Idade')
+df.ordenar_por('Nome')
+df.filtrar('Nome_Cidade == "João - São Paulo"')
+estatisticas = df.calcular_estatisticas()
+
+# Exibindo o DataFrame após as operações
+print("\nDataFrame Após Operações:")
+print(df)
+
+# Exibindo estatísticas descritivas
+print("\nEstatísticas Descritivas:")
+print(estatisticas)
+
+# Exportando o DataFrame para CSV
+df.exportar_csv('dados_exportados.csv')
+
+# Importando dados de um arquivo CSV
+df_importado = DataFrame.importar_csv('dados_importados.csv')
+print("\nDataFrame Importado:")
+print(df_importado)
+```
+
